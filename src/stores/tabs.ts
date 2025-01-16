@@ -18,19 +18,12 @@ export const useTabsStore = defineStore("tabs", () => {
       return page.route || "";
     });
 
-    const first = routes[0];
     const current = routes[routes.length - 1];
     // 导航到当前面
     if (current === route) {
       return;
     }
-    // 导航到首页，使用back，界面动画逻辑更优
-    // 并且可以避免页面堆叠超出限制
-    if (first === route) {
-      Taro.navigateBack({ delta: 9999 });
-      return;
-    }
-    Taro.navigateTo({
+    Taro.redirectTo({
       url: route,
     });
   };
